@@ -1,6 +1,6 @@
 export default function Sucesso() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-500 to-emerald-700 text-white p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-green-500 to-emerald-700 text-white p-6">
       
       <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl w-full max-w-md text-center">
         
