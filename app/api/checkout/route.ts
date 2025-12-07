@@ -44,7 +44,13 @@ export async function POST(req: Request) {
     if (!data.init_point) {
       return NextResponse.json({ error: "Falha MP", detalhe: data }, { status: 500 });
     }
-    
+
+    if (!data.id) {
+      console.log("MP não retornou id:", data);
+    } else {
+      await saveOrder(String(data.id), email, nome);
+    }
+
     // Redireciona direto pro checkout do MP
     return NextResponse.redirect(data.init_point);
   } catch (e) {
