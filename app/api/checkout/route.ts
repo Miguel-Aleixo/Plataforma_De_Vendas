@@ -44,10 +44,7 @@ export async function POST(req: Request) {
     if (!data.init_point) {
       return NextResponse.json({ error: "Falha MP", detalhe: data }, { status: 500 });
     }
-
-    // Salva pedido no Supabase
-    await saveOrder(String(data.id), email, nome);
-
+    
     // Redireciona direto pro checkout do MP
     return NextResponse.redirect(data.init_point);
   } catch (e) {
