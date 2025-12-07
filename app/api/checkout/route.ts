@@ -20,7 +20,7 @@ export async function POST(req: Request) {
             title: "E-book Renda Extra",
             quantity: 1,
             currency_id: "BRL",
-            unit_price: 0.50,
+            unit_price: 0.20,
           },
         ],
         back_urls: {
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
   const data = await resposta.json();
 
   if (data.id) {
-    saveOrder(String(data.id), String(email));
+    await saveOrder(String(data.id), String(email));
   }
 
   if (!data.init_point) {

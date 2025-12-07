@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
     console.log("🆔 preferenceId:", preferenceId);
 
-    const email = getEmailFromOrderId(String(preferenceId));
+    const email = await getEmailFromOrderId(String(preferenceId));
 
     if (!email) {
       console.log("⚠️ E-mail não encontrado no JSON!");

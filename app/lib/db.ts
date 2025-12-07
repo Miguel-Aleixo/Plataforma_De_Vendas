@@ -1,9 +1,11 @@
-const orders: Record<string, { email: string }> = {};
+import redisClient from "./redis";
 
-export function saveOrder(orderId: string, email: string) {
-  orders[orderId] = { email };
+export async function saveOrder(orderId: string, email: string) {
+  // salva com TTL de 7 dias (opcional)
+  await redisClient.set(`order:${orderId}`, email, { EX: 60 * 60 * 24 * 7 });
 }
 
-export function getEmailFromOrderId(orderId: string) {
-  return orders[orderId]?.email ?? null;
+export async function getEmailFromOrderId(orderId: string) {
+  const email = await redisClient.get(`order:${orderId}`);
+  return email;
 }
