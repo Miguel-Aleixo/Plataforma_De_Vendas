@@ -2,29 +2,24 @@ import { getEmailFromOrderId } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function POST(req: Request) {
   try {
     const json = await req.json();
     console.log("📩 WEBHOOK RECEBIDO:", json);
 
-    // Ignora eventos que não sejam pagamento
     if (json.type !== "payment") return NextResponse.json({ ok: true });
 
     const paymentId = json.data.id;
 
-    // Pega os dados do pagamento no MP
     const pagamento = await fetch(
       `https://api.mercadopago.com/v1/payments/${paymentId}`,
-      {
-        headers: { Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}` },
-      }
-    ).then((r) => r.json());
+      { headers: { Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}` } }
+    ).then(r => r.json());
 
     if (pagamento.status !== "approved") return NextResponse.json({ ok: true });
 
-    // Recupera email do pedido
     const preferenceId = pagamento.additional_info?.items?.[0]?.id || pagamento.order?.id;
     const email = await getEmailFromOrderId(String(preferenceId));
 
@@ -32,7 +27,6 @@ export async function POST(req: Request) {
 
     console.log("📩 Enviando e-book para:", email);
 
-    // Envia e-mail com Resend
     await resend.emails.send({
       from: "E-book <noreply@rendaextra.dev>",
       to: email,
@@ -46,7 +40,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.log("ERRO WEBHOOK:", e);
-    return NextResponse.json({ error: true }, { status: 500 });
+    console.error("Erro webhook:", e);
+    return NextResponse.json({ error: true, message: (e as any).message }, { status: 500 });
   }
 }

@@ -3,16 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const form = await req.formData();
-    const nome = form.get("nome")?.toString();
-    const email = form.get("email")?.toString();
+    const body = await req.json();
+    const { nome, email } = body;
 
     if (!nome || !email) {
       return NextResponse.json({ error: "Nome ou email faltando" }, { status: 400 });
     }
 
-    // Cria o checkout no Mercado Pago
-    const resposta = await fetch(
+    // Cria a preferência no Mercado Pago
+    const mpResponse = await fetch(
       "https://api.mercadopago.com/checkout/preferences",
       {
         method: "POST",
@@ -26,8 +25,8 @@ export async function POST(req: Request) {
               title: "E-book Renda Extra",
               quantity: 1,
               currency_id: "BRL",
-              unit_price: 9.99,
-              id: email, // usamos email como id temporário
+              unit_price: 0.20,
+              id: email, // id temporário
             },
           ],
           back_urls: {
@@ -39,22 +38,18 @@ export async function POST(req: Request) {
       }
     );
 
-    const data = await resposta.json();
+    const data = await mpResponse.json();
 
     if (!data.init_point) {
       return NextResponse.json({ error: "Falha MP", detalhe: data }, { status: 500 });
     }
 
-    if (!data.id) {
-      console.log("MP não retornou id:", data);
-    } else {
-      await saveOrder(String(data.id), email, nome);
-    }
+    // Salva pedido no Supabase
+    await saveOrder(String(data.id), email, nome);
 
-    // Redireciona direto pro checkout do MP
-    return NextResponse.redirect(data.init_point);
+    return NextResponse.json({ url: data.init_point });
   } catch (e) {
-    console.log("ERRO CHECKOUT:", e);
-    return NextResponse.json({ error: true }, { status: 500 });
+    console.error("Erro checkout:", e);
+    return NextResponse.json({ error: true, message: (e as any).message }, { status: 500 });
   }
 }
