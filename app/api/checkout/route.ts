@@ -24,8 +24,8 @@ export async function POST(req: Request) {
           },
         ],
         back_urls: {
-          success: "https://lore-unboiled-thusly.ngrok-free.dev/sucesso",
-          failure: "https://lore-unboiled-thusly.ngrok-free.dev/erro",
+          success: "https://plataforma-de-vendas-liard.vercel.app/sucesso",
+          failure: "https://plataforma-de-vendas-liard.vercel.app/erro",
         },
         auto_return: "approved",
       }),
