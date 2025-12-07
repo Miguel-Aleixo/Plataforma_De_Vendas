@@ -1,20 +1,26 @@
-import { getEmailFromOrderId } from "@/app/lib/db";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
+import { getEmailFromOrderId } from "@/app/lib/db";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Configura o transporte do Gmail
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER, // seu Gmail
+    pass: process.env.GMAIL_APP_PASSWORD, // App Password
+  },
+});
 
 export async function POST(req: Request) {
   try {
     const json = await req.json();
     console.log("📩 WEBHOOK RECEBIDO:", json);
 
-    // Ignora eventos que não sejam pagamento
     if (json.type !== "payment") return NextResponse.json({ ok: true });
 
     const paymentId = json.data.id;
 
-    // Pega os dados do pagamento no MP
+    // Pega os dados do pagamento no Mercado Pago
     const pagamento = await fetch(
       `https://api.mercadopago.com/v1/payments/${paymentId}`,
       {
@@ -32,9 +38,9 @@ export async function POST(req: Request) {
 
     console.log("📩 Enviando e-book para:", email);
 
-    // Envia e-mail com Resend
-    await resend.emails.send({
-      from: "E-book <noreply@rendaextra.dev>",
+    // Envia e-mail com PDF
+    await transporter.sendMail({
+      from: `"E-book Renda Extra" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: "Seu e-book chegou!",
       html: `
@@ -46,7 +52,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.log("ERRO WEBHOOK:", e);
+    console.error("ERRO WEBHOOK:", e);
     return NextResponse.json({ error: true }, { status: 500 });
   }
 }
