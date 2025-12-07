@@ -26,7 +26,7 @@ export async function POST(req: Request) {
               title: "E-book Renda Extra",
               quantity: 1,
               currency_id: "BRL",
-              unit_price: 9.99,
+              unit_price: 0.20,
               id: email, // usamos email como id temporário
             },
           ],
