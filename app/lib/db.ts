@@ -1,8 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Aqui usamos a SECRET KEY do Supabase (service role) para permitir inserts e selects seguros
 const supabaseUrl = process.env.SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY!; // Secret key
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function saveOrder(orderId: string, email: string, nome: string) {
