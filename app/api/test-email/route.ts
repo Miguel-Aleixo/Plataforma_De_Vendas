@@ -14,7 +14,7 @@ export async function GET() {
     });
 
     // Caminho do PDF
-    const pdfPath = path.join(process.cwd(), "src/assets/ebook.pdf");
+    const pdfPath = path.join(process.cwd(), "src/public/ebook.pdf");
 
     console.log("📎 PDF existe?", fs.existsSync(pdfPath));
 
