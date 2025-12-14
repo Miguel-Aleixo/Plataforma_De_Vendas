@@ -1,3 +1,5 @@
+"use client";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-linear-to-br from-blue-50 to-blue-200 flex items-center justify-center p-6">
@@ -40,7 +42,7 @@ export default function Home() {
 
             const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-            const res = await fetch(`${BACKEND_URL}/create_preference`, {
+            const res = await fetch(`${BACKEND_URL}/checkout`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data),
