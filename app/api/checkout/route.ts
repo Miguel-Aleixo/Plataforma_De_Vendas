@@ -31,8 +31,8 @@ export async function POST(req: Request) {
             },
           ],
           back_urls: {
-            success: "https://plataforma-de-vendas-liard.vercel.app/sucesso",
-            failure: "https://plataforma-de-vendas-liard.vercel.app/erro",
+            success: "https://caminhodigital.vercel.app/sucesso",
+            failure: "https://caminhodigital.vercel.app/erro",
           },
           auto_return: "approved",
         }),
