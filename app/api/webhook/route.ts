@@ -50,6 +50,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "E-mail não encontrado" }, { status: 404 });
     }
 
+    const pdfPath = path.join(process.cwd(), "public", "ebook.pdf");
+    const pdfBuffer = fs.readFileSync(pdfPath);
+
     await transporter.sendMail({
       from: `"E-book - O Caminho Real Para Sua Renda Online" <${process.env.GMAIL_USER}>`,
       to: email,
@@ -62,14 +65,11 @@ export async function POST(req: Request) {
       attachments: [
         {
           filename: "ebook.pdf",
-          content: fs.createReadStream(
-            path.join(process.cwd(), "src/assets/ebook.pdf")
-          ),
+          content: pdfBuffer,
           contentType: "application/pdf",
         },
       ],
     });
-
 
     return NextResponse.json({ ok: true });
   } catch (err) {
