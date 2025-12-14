@@ -1,58 +1,79 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { getEmailFromOrderId } from "@/app/lib/db";
+import path from "path";
+import fs from "fs";
 
-// Configura o transporte do Gmail
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.GMAIL_USER, // seu Gmail
-    pass: process.env.GMAIL_APP_PASSWORD, // App Password
+    user: process.env.GMAIL_USER!,
+    pass: process.env.GMAIL_APP_PASSWORD!,
   },
 });
 
 export async function POST(req: Request) {
   try {
-    const json = await req.json();
-    console.log("📩 WEBHOOK RECEBIDO:", json);
+    const body = await req.json();
+    console.log("📩 WEBHOOK RECEBIDO:", body);
 
-    if (json.type !== "payment") return NextResponse.json({ ok: true });
+    if (!body?.data?.id) {
+      return NextResponse.json({ ok: true });
+    }
 
-    const paymentId = json.data.id;
+    const paymentId = body.data.id;
 
-    // Pega os dados do pagamento no Mercado Pago
     const pagamento = await fetch(
       `https://api.mercadopago.com/v1/payments/${paymentId}`,
       {
-        headers: { Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}` },
+        headers: {
+          Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
+        },
       }
     ).then((r) => r.json());
 
-    if (pagamento.status !== "approved") return NextResponse.json({ ok: true });
+    if (pagamento.status !== "approved") {
+      return NextResponse.json({ ok: true });
+    }
 
-    // Recupera email do pedido
-    const preferenceId = pagamento.additional_info?.items?.[0]?.id || pagamento.order?.id;
-    const email = await getEmailFromOrderId(String(preferenceId));
+    // 🔑 ID correto do pedido
+    const orderId = pagamento.external_reference;
 
-    if (!email) return NextResponse.json({ error: "E-mail não encontrado" }, { status: 404 });
+    if (!orderId) {
+      return NextResponse.json({ error: "Pedido não encontrado" }, { status: 400 });
+    }
 
-    console.log("📩 Enviando e-book para:", email);
+    const email = await getEmailFromOrderId(orderId);
 
-    // Envia e-mail com PDF
+    if (!email) {
+      return NextResponse.json({ error: "E-mail não encontrado" }, { status: 404 });
+    }
+
     await transporter.sendMail({
-      from: `"E-book Renda Extra" <${process.env.GMAIL_USER}>`,
+      from: `"E-book - O Caminho Real Para Sua Renda Online" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: "Seu e-book chegou!",
+      subject: "Seu e-book chegou 📘",
       html: `
-        <h2>Obrigado pela compra!</h2>
-        <p>Clique no link abaixo para baixar seu e-book:</p>
-        <a href="https://plataforma-de-vendas-liard.vercel.app/ebook.pdf">Baixar E-book</a>
-      `,
+    <h2>Obrigado pela compra!</h2>
+    <p>Seu e-book está em anexo neste e-mail.</p>
+    <p>Desejamos bons estudos 🚀</p>
+  `,
+      attachments: [
+        {
+          filename: "ebook.pdf",
+          content: fs.createReadStream(
+            path.join(process.cwd(), "src/assets/ebook.pdf")
+          ),
+          contentType: "application/pdf",
+        },
+      ],
     });
 
+
     return NextResponse.json({ ok: true });
-  } catch (e) {
-    console.error("ERRO WEBHOOK:", e);
+  } catch (err) {
+    console.error("ERRO WEBHOOK:", err);
     return NextResponse.json({ error: true }, { status: 500 });
   }
 }
