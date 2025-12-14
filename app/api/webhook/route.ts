@@ -33,22 +33,16 @@ export async function POST(req: Request) {
       }
     ).then((r) => r.json());
 
+    // 🔴 NÃO aprovado ainda → sai
     if (pagamento.status !== "approved") {
       return NextResponse.json({ ok: true });
     }
 
-    // 🔑 ID correto do pedido
     const orderId = pagamento.external_reference;
-
-    if (!orderId) {
-      return NextResponse.json({ error: "Pedido não encontrado" }, { status: 400 });
-    }
+    if (!orderId) return NextResponse.json({ ok: true });
 
     const email = await getEmailFromOrderId(orderId);
-
-    if (!email) {
-      return NextResponse.json({ error: "E-mail não encontrado" }, { status: 404 });
-    }
+    if (!email) return NextResponse.json({ ok: true });
 
     const pdfPath = path.join(process.cwd(), "public", "ebook.pdf");
     const pdfBuffer = fs.readFileSync(pdfPath);
@@ -74,6 +68,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("ERRO WEBHOOK:", err);
-    return NextResponse.json({ error: true }, { status: 500 });
+    // ⚠️ Mesmo com erro, SEMPRE 200
+    return NextResponse.json({ ok: true });
   }
 }
