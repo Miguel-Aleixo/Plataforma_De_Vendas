@@ -56,11 +56,26 @@ O frontend será iniciado em `http://localhost:3000`.
 1.  O usuário acessa a página inicial.
 2.  Insere seu e-mail no formulário.
 3.  Clica no botão "Ir para o Pagamento".
-4.  O frontend envia uma requisição `POST` para `/create_preference` no backend.
-5.  O backend retorna o `init_point` (URL de checkout do Mercado Pago).
-6.  O usuário é redirecionado para o checkout do Mercado Pago.
-7.  Após o pagamento, o Mercado Pago redireciona o usuário para uma das páginas de feedback (sucesso, falha ou pendente).
-8.  Se o pagamento for aprovado, o webhook do backend envia o PDF para o e-mail do usuário.
+4.  O frontend **gera automaticamente um `external_reference` único** (formato: `ORDER_timestamp_randomString`).
+5.  O frontend envia uma requisição `POST` para `/create_preference` no backend com o e-mail e o `external_reference`.
+6.  O backend retorna o `init_point` (URL de checkout do Mercado Pago).
+7.  O usuário é redirecionado para o checkout do Mercado Pago.
+8.  Após o pagamento, o Mercado Pago redireciona o usuário para uma das páginas de feedback (sucesso, falha ou pendente).
+9.  Se o pagamento for aprovado, o webhook do backend envia o PDF para o e-mail do usuário.
+
+## O que é `external_reference`?
+
+O `external_reference` é um identificador único gerado automaticamente pelo frontend para cada pedido. Ele tem o formato:
+
+\`\`\`
+ORDER_1702556400000_abc123def
+\`\`\`
+
+Este ID permite que você:
+
+1.  **Rastreie pedidos**: Vincule o pagamento do Mercado Pago com um pedido específico no seu banco de dados.
+2.  **Atualize o status**: Use este ID para atualizar o status do pedido quando o webhook é recebido.
+3.  **Mantenha histórico**: Registre todas as transações com seus IDs de pedido.
 
 ## Tecnologias Utilizadas
 
@@ -88,6 +103,7 @@ npm run start
 *   📱 Totalmente responsivo para dispositivos móveis
 *   🎯 Páginas de feedback com ícones e cores distintas
 *   🚀 Integração suave com o backend e Mercado Pago
+*   🔐 Geração automática de `external_reference` único para rastreamento de pedidos
 
 ---
 *Desenvolvido por Manus AI*

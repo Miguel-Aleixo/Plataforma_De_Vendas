@@ -7,6 +7,14 @@ export default function Home() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const generateExternalReference = (): string => {
+    // Gerar um ID único para o pedido
+    // Formato: ORDER_timestamp_randomString
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(2, 11);
+    return `ORDER_${timestamp}_${randomString}`;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -21,10 +29,17 @@ export default function Home() {
         return;
       }
 
+      // Gerar external_reference único
+      const externalReference = generateExternalReference();
+      console.log('External Reference gerado:', externalReference);
+
       // Chamar o backend para criar a preferência de pagamento
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/create_preference`,
-        { buyer_email: email },
+        { 
+          buyer_email: email,
+          external_reference: externalReference
+        },
         {
           headers: {
             'Content-Type': 'application/json',
