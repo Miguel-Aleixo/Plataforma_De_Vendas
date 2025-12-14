@@ -36,7 +36,6 @@ export async function POST(req: Request) {
     console.log("💳 STATUS PAGAMENTO:", pagamento.status);
     console.log("💳 STATUS DETAIL:", pagamento.status_detail);
 
-
     // 🔴 NÃO aprovado ainda → sai
     if (pagamento.status !== "approved") {
       return NextResponse.json({ ok: true });
