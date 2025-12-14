@@ -2,10 +2,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-linear-to-br from-blue-50 to-blue-200 flex items-center justify-center p-6">
       <div className="max-w-3xl w-full bg-white shadow-2xl rounded-3xl p-10 border border-blue-100">
-        
+
         {/* TÍTULO */}
         <h1 className="text-5xl font-extrabold text-center text-gray-900">
-          Transforme sua Renda com o  
+          Transforme sua Renda com o
           <span className="text-blue-600"> Ebook Definitivo </span>
         </h1>
 
@@ -24,10 +24,40 @@ export default function Home() {
 
         {/* FORM */}
         <form
-          action="/api/checkout"
-          method="POST"
+          onSubmit={async (e) => {
+            e.preventDefault();
+
+            // Cast para HTMLFormElement
+            const form = e.target as HTMLFormElement;
+
+            const formData = new FormData(form);
+            const data = {
+              nome: formData.get("nome"),
+              email: formData.get("email"),
+              title: "Ebook Definitivo",
+              price: 0.01,
+            };
+
+            const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+            const res = await fetch(`${BACKEND_URL}/create_preference`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+
+
+            const json = await res.json();
+            const preferenceId = json.id;
+
+            // Redirecionar para o checkout do Mercado Pago
+            const mpUrl = `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${preferenceId}`;
+            window.location.href = mpUrl;
+          }}
           className="mt-10 bg-blue-50 p-6 rounded-2xl shadow-inner"
         >
+
+
           <label className="block text-gray-700 font-semibold mb-1">
             Seu nome
           </label>
