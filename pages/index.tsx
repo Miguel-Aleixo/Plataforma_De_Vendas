@@ -418,7 +418,7 @@ export default function Home() {
                 </a>
             </div>
             <p className="text-xs text-gray-400 mt-4">
-                © {new Date().getFullYear()} [Seu Nome/Empresa]. Todos os direitos reservados.
+                © {new Date().getFullYear()} Caminho Digital. Todos os direitos reservados.
             </p>
         </div>
       </div>
