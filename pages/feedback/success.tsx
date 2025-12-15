@@ -21,15 +21,14 @@ export default function Success() {
           </p>
           
           <p className="text-gray-600 mb-8 leading-relaxed">
-            Você receberá o arquivo PDF no seu e-mail em breve. Verifique sua
-            caixa de entrada e a pasta de spam.
+            Você receberá o arquivo PDF no seu e-mail em breve. Por favor, verifique sua
+            caixa de entrada e, **principalmente**, a pasta de <span className="font-bold text-red-500">SPAM (Lixo Eletrônico)</span>.
           </p>
 
-          <Link href="/">
-            <a className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+            <a href='/' className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
               Voltar para a Página Inicial
             </a>
-          </Link>
+        
         </div>
       </div>
     </div>

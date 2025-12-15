@@ -21,15 +21,14 @@ export default function Pending() {
           </p>
           
           <p className="text-gray-600 mb-8 leading-relaxed">
-            Você receberá uma confirmação em breve. Verifique seu e-mail para
+            Você receberá uma confirmação em breve. Verifique sua caixa de entrada e, 
+            <span className="font-bold text-red-500"> principalmente, a pasta de SPAM (Lixo Eletrônico)</span>, para
             atualizações sobre o status do seu pagamento.
           </p>
 
-          <Link href="/">
-            <a className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+            <a href='/' className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
               Voltar para a Página Inicial
             </a>
-          </Link>
         </div>
       </div>
     </div>

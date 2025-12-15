@@ -25,11 +25,9 @@ export default function Failure() {
             persistir, entre em contato com seu banco.
           </p>
 
-          <Link href="/">
-            <a className="inline-block bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+            <a href='/' className="inline-block bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
               Tentar Novamente
             </a>
-          </Link>
         </div>
       </div>
     </div>
