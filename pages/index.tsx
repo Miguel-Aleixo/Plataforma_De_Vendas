@@ -1,6 +1,77 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { FaInstagram, FaTiktok } from "react-icons/fa";
+import { FaInstagram, FaTiktok, FaCheckCircle, FaRocket, FaShieldAlt, FaMoneyBillWave, FaPlane } from "react-icons/fa";
+
+// =================================================================
+// 1. DADOS ESTÁTICOS (Conteúdo da Página)
+// =================================================================
+
+// Conteúdo reescrito para maior persuasão e concisão
+const PAGE_CONTENT = {
+    header: {
+        title: "CHEGA DE PERDER TEMPO E DINHEIRO!",
+        subtitle: "O ÚNICO GUIA QUE TRANSFORMA SEU CELULAR EM UMA MÁQUINA DE RENDA EXTRA.",
+        ebookTitle: "O Caminho Real para a Sua Renda Online",
+        hook: "Cansado de promessas vazias? Descubra o método simples e direto que já gerou resultados para centenas de pessoas comuns. Seu futuro financeiro começa aqui, com um investimento menor que um lanche."
+    },
+    pricing: {
+        promoTag: "OFERTA RELÂMPAGO: ÚLTIMAS HORAS!",
+        originalPrice: "R$ 23,90",
+        currentPrice: "R$ 9,90",
+        savings: "Aproveite 58% de desconto. O preço voltará ao normal em breve!",
+        urgencyTitle: "ESTA OFERTA EXCLUSIVA TERMINA EM:"
+    },
+    benefits: [
+        {
+            title: "Mapa Completo e Sem Enrolação",
+            description: "Saiba exatamente o que fazer, passo a passo, para começar a lucrar online hoje. Zero teoria, 100% prática.",
+            icon: FaRocket
+        },
+        {
+            title: "Evite Golpes e Perdas",
+            description: "Identifique e fuja dos métodos que só fazem você perder tempo e dinheiro. Foco apenas no que é comprovado.",
+            icon: FaShieldAlt
+        },
+        {
+            title: "Renda Extra Imediata",
+            description: "Estratégias simples que você pode aplicar imediatamente para ver os primeiros resultados na sua conta.",
+            icon: FaMoneyBillWave
+        },
+        {
+            title: "Liberdade de Horário e Local",
+            description: "Trabalhe de onde quiser, no seu próprio ritmo. O guia para construir sua independência financeira.",
+            icon: FaPlane
+        }
+    ],
+    testimonials: [
+        {
+            quote: "Em uma semana, já estava aplicando as primeiras dicas e vendo resultados! O e-book me deu o mapa exato.",
+            author: "Ana C. (Recife)"
+        },
+        {
+            quote: "O investimento de R$ 9,90 se pagou no primeiro dia de aplicação. É direto ao ponto e mostra o que funciona.",
+            author: "Bruno M. (São Paulo)"
+        },
+        {
+            quote: "A linguagem é super acessível, e as estratégias são fáceis de implementar. Finalmente estou construindo minha renda extra.",
+            author: "Carla S. (Belo Horizonte)"
+        },
+        {
+            quote: "Economizei meses de pesquisa e muito dinheiro. Este e-book é o atalho que eu precisava para começar a ter lucro de verdade.",
+            author: "Ricardo L. (Brasília)"
+        }
+    ],
+    cta: "QUERO MEU ACESSO IMEDIATO POR R$ 9,90",
+    guarantee: "Compra 100% Segura. Seu acesso ao guia completo será enviado imediatamente para o e-mail cadastrado após a confirmação do pagamento. Comece a transformar sua vida financeira sem riscos.",
+    social: {
+        instagram: "https://www.instagram.com/caminho.digital0/",
+        tiktok: "https://www.tiktok.com/@caminho.digital0"
+    }
+};
+
+// =================================================================
+// 2. COMPONENTES DE UTILIDADE (Mantidos e ajustados)
+// =================================================================
 
 // Hook para garantir que o componente só renderize no lado do cliente
 const useClientSide = () => {
@@ -24,35 +95,7 @@ const StarRating = () => (
     </div>
 );
 
-// Dados dos Depoimentos
-const testimonials = [
-    {
-        quote: "Eu estava completamente perdida, sem saber por onde começar a ganhar dinheiro online. O e-book me deu o mapa exato. Em uma semana, já estava aplicando as primeiras dicas e vendo resultados!",
-        author: "Ana C. (Recife)"
-    },
-    {
-        quote: "Sempre achei que era golpe, mas o 'Caminho Real' é direto ao ponto e mostra o que funciona. O investimento de R$ 9,90 se pagou no primeiro dia de aplicação. Um guia essencial!",
-        author: "Bruno M. (São Paulo)"
-    },
-    {
-        quote: "A linguagem é super acessível, e as estratégias são fáceis de implementar. Finalmente estou construindo minha renda extra sem sair de casa. Recomendo demais!",
-        author: "Carla S. (Belo Horizonte)"
-    },
-    {
-        quote: "O que mais gostei foi a mudança de mentalidade que o guia proporciona. Não é só sobre técnicas, é sobre como pensar como um empreendedor digital. Praticidade nota 10!",
-        author: "Felipe G. (Porto Alegre)"
-    },
-    {
-        quote: "Eu tinha medo de começar, mas a clareza do e-book me deu a confiança que faltava. É como ter um mentor te guiando a cada passo. Vale cada centavo!",
-        author: "Juliana P. (Rio de Janeiro)"
-    },
-    {
-        quote: "Economizei meses de pesquisa e muito dinheiro que gastaria em cursos caros e incompletos. Este e-book é o atalho que eu precisava para começar a ter lucro de verdade.",
-        author: "Ricardo L. (Brasília)"
-    },
-];
-
-// Lógica do Cronômetro
+// Lógica do Cronômetro (Mantida do original)
 const calculateTimeLeft = (targetDate: Date) => {
     const difference = +targetDate - +new Date();
     let timeLeft = {};
@@ -69,10 +112,9 @@ const calculateTimeLeft = (targetDate: Date) => {
     return timeLeft;
 };
 
-// Componente do Cronômetro
+// Componente do Cronômetro (Ajustado para usar o título de urgência do PAGE_CONTENT)
 const CountdownTimer = () => {
     // Define a data final da promoção (Exemplo: 25 de Dezembro de 2025, 23:59:59)
-    // ATENÇÃO: Ajuste o ano e o mês conforme a necessidade.
     const targetDate = new Date('2025-12-25T23:59:59'); 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
 
@@ -109,7 +151,7 @@ const CountdownTimer = () => {
             {timerComponents.length ? (
                 <>
                     <p className="text-lg font-bold text-red-600 mb-2">
-                        A PROMOÇÃO TERMINA EM:
+                        {PAGE_CONTENT.pricing.urgencyTitle}
                     </p>
                     <div className="flex justify-center">
                         {timerComponents}
@@ -124,30 +166,32 @@ const CountdownTimer = () => {
     );
 };
 
+// =================================================================
+// 3. COMPONENTE PRINCIPAL (Refatorado V2 - Layout Otimizado)
+// =================================================================
 
 export default function Home() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [currentSlide, setCurrentSlide] = useState(0); // Estado para o carrossel
-  const emailInputRef = useRef<HTMLInputElement>(null); // Ref para o campo de e-mail
-  const isClient = useClientSide(); // Hook para o erro de hidratação
+  const [currentSlide, setCurrentSlide] = useState(0); 
+  const emailInputRef = useRef<HTMLInputElement>(null); 
+  const isClient = useClientSide(); 
 
-  // Lógica para o carrossel automático com fade
+  // Lógica para o carrossel automático com fade (Mantida)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => 
-        (prevSlide + 1) % testimonials.length
+        (prevSlide + 1) % PAGE_CONTENT.testimonials.length
       );
-    }, 5000); // Troca a cada 5 segundos
+    }, 5000); 
 
-    return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
+    return () => clearInterval(interval); 
   }, []);
 
+  // Lógica de Pagamento (Mantida)
   const generateExternalReference = (): string => {
-    // Gerar um ID único para o pedido
-    // Formato: ORDER_timestamp_randomString
     const timestamp = Date.now();
     const randomString = Math.random().toString(36).substring(2, 11);
     return `ORDER_${timestamp}_${randomString}`;
@@ -160,21 +204,17 @@ export default function Home() {
     setLoading(true);
 
     try {
-      // Validar e-mail
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setError('Por favor, insira um e-mail válido.');
         setLoading(false);
-        // Rola para o campo de e-mail se a validação falhar
         emailInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
-      // Gerar external_reference único
       const externalReference = generateExternalReference();
       console.log('External Reference gerado:', externalReference);
 
       // Chamar o backend para criar a preferência de pagamento
-      // NOTA: O preço de R$9,90 deve ser configurado no backend para a promoção de Natal.
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/create_preference`,
         { 
@@ -188,7 +228,6 @@ export default function Home() {
         }
       );
 
-      // Redirecionar para o checkout do Mercado Pago
       if (response.data.init_point) {
         setSuccess('Redirecionando para o checkout...');
         window.location.href = response.data.init_point;
@@ -209,88 +248,86 @@ export default function Home() {
     }
   };
 
-  // Função para rolar até o campo de e-mail
+  // Função para rolar até o campo de e-mail (Mantida)
   const scrollToEmailInput = () => {
     emailInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center md:px-4 md:py-12 pb-24 md:pb-12"> {/* Adiciona padding extra no mobile para o botão fixo */}
-      {/* Ajuste de largura: max-w-lg para mobile, e aumenta progressivamente para desktop */}
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center md:px-4 md:py-12 pb-24 md:pb-12">
       <div className="w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl bg-white md:rounded-xl md:shadow-2xl p-8 sm:p-10 border-t-4 border-red-600">
         
         {/* Seção de Título e Gancho */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-2 leading-tight">
-            PARE DE PERDER TEMPO!
+            {PAGE_CONTENT.header.title}
           </h1>
           <p className="text-xl text-red-600 font-semibold mb-4">
-            Desbloqueie o Segredo da Renda Online Ainda Neste Natal!
+            {PAGE_CONTENT.header.subtitle}
           </p>
-          <h2 className="text-2xl leading-tight font-bold text-purple-700">
-            "O Caminho Real para a Sua Renda Online"
+          <h2 className="text-2xl leading-tight font-bold text-purple-700 mb-4">
+            "{PAGE_CONTENT.header.ebookTitle}"
           </h2>
+          <p className="text-gray-600 italic max-w-xl mx-auto">
+            {PAGE_CONTENT.header.hook}
+          </p>
         </div>
 
-        {/* Seção de Preço e Urgência (Gatilho de Escassez e Contraste) */}
-        <div className="bg-red-50 border-2 border-red-300 p-4 rounded-lg mb-6 text-center shadow-inner">
-            <p className="text-sm font-medium text-gray-700 mb-1">
-                <span className="bg-yellow-400 text-gray-900 px-2 py-0.5 rounded-full font-bold uppercase text-xs animate-pulse">
-                    PROMOÇÃO RELÂMPAGO DE NATAL!
+        {/* Seção de Preço e Urgência (CRONÔMETRO SEPARADO E DESTAQUE) */}
+        <div className="bg-red-50 border-2 border-red-300 p-6 rounded-lg mb-6 text-center shadow-lg">
+            <p className="text-sm font-medium text-gray-700 mb-2">
+                <span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-full font-black uppercase text-sm animate-pulse">
+                    {PAGE_CONTENT.pricing.promoTag}
                 </span>
             </p>
-            <p className="text-lg text-gray-500 line-through">
-                De R$ 23,90
+            <p className="text-xl text-gray-500 line-through">
+                De {PAGE_CONTENT.pricing.originalPrice}
             </p>
-            <p className="text-4xl font-extrabold text-red-600">
-                POR APENAS <span className="text-5xl">R$ 9,90</span>
+            <p className="text-5xl font-extrabold text-red-600 leading-none">
+                POR APENAS <span className="text-6xl">R$ 9,90</span>
             </p>
-            <p className="text-sm font-medium text-red-700 mt-1">
-                Economize mais de 58% - Oferta Válida Somente Até o Fim do Mês!
+            <p className="text-sm font-medium text-red-700 mt-2">
+                {PAGE_CONTENT.pricing.savings}
             </p>
         </div>
 
-        {/* CRONÔMETRO DE CONTAGEM REGRESSIVA (Renderizado apenas no cliente) */}
-        {isClient && <CountdownTimer />}
-        {!isClient && (
-            <div className="text-center mt-4 mb-6">
-                <p className="text-lg font-bold text-red-600 mb-2">
-                    A PROMOÇÃO TERMINA EM:
-                </p>
-                <div className="flex justify-center">
-                    <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
-                    <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
-                    <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
-                    <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
+        {/* CRONÔMETRO DE CONTAGEM REGRESSIVA (SEÇÃO SEPARADA PARA MAIOR DESTAQUE) */}
+        <div className="mb-8 p-4 bg-red-100 rounded-lg border border-red-300">
+            {isClient && <CountdownTimer />}
+            {!isClient && (
+                <div className="text-center">
+                    <p className="text-lg font-bold text-red-600 mb-2">
+                        {PAGE_CONTENT.pricing.urgencyTitle}
+                    </p>
+                    <div className="flex justify-center">
+                        <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
+                        <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
+                        <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
+                        <div className="flex flex-col items-center mx-1 p-2 bg-red-700 rounded-lg shadow-md w-16 h-16 animate-pulse"></div>
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
+        </div>
 
-        {/* Seção de Benefícios (Gatilho de Razão) */}
+        {/* Seção de Benefícios (Melhor Escaneabilidade com Ícones) */}
         <div className="mb-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-3 border-b pb-2">
-                O que você vai conquistar com este Guia:
+            <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+                O que você vai **CONQUISTAR** com este Guia:
             </h3>
-            <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start">
-                    <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <p>
-                        <strong className="font-semibold">Clareza Total:</strong> Saiba exatamente por onde começar e o que evitar para não cair em golpes.
-                    </p>
-                </li>
-                <li className="flex items-start">
-                    <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <p>
-                        <strong className="font-semibold">Métodos Comprovados:</strong> Descubra as estratégias que realmente geram resultados, passo a passo.
-                    </p>
-                </li>
-                <li className="flex items-start">
-                    <span className="text-green-500 mr-2 text-xl">✓</span>
-                    <p>
-                        <strong className="font-semibold">Liberdade Financeira:</strong> Comece a construir sua fonte de renda extra ou principal no conforto de casa.
-                    </p>
-                </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {PAGE_CONTENT.benefits.map((benefit, index) => {
+                    const Icon = benefit.icon;
+                    return (
+                        <div key={index} className="flex items-start p-4 bg-white rounded-lg shadow-md border-l-4 border-purple-500">
+                            <Icon className="w-8 h-8 text-purple-600 mr-3 mt-1 flex-shrink-0" />
+                            <div>
+                                <strong className="font-bold text-gray-900 block">{benefit.title}</strong>
+                                <p className="text-gray-600 text-sm">{benefit.description}</p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
 
         {/* Seção de Depoimentos (Carrossel Automático com Fade - Prova Social) */}
@@ -300,8 +337,8 @@ export default function Home() {
             </h3>
             
             {/* Carrossel Container */}
-            <div className="relative h-48"> {/* Altura fixa para evitar pulos de layout */}
-                {testimonials.map((testimonial, index) => (
+            <div className="relative h-48">
+                {PAGE_CONTENT.testimonials.map((testimonial, index) => (
                     <div 
                         key={index} 
                         className={`absolute top-0 left-0 w-full transition-opacity duration-1000 ease-in-out ${
@@ -321,7 +358,7 @@ export default function Home() {
 
             {/* Indicadores de Slide (Dots) */}
             <div className="flex justify-center mt-20 md:mt-8 space-x-2">
-                {testimonials.map((_, index) => (
+                {PAGE_CONTENT.testimonials.map((_, index) => (
                     <button
                         key={index}
                         className={`w-3 h-3 rounded-full transition-colors ${
@@ -334,7 +371,7 @@ export default function Home() {
             </div>
         </div>
 
-        {/* Formulário de Compra */}
+        {/* Formulário de Compra (CTA DESTAQUE) */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -350,7 +387,7 @@ export default function Home() {
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-500 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed text-lg"
               disabled={loading}
               required
-              ref={emailInputRef} // Adiciona a ref ao input
+              ref={emailInputRef}
             />
           </div>
 
@@ -368,7 +405,7 @@ export default function Home() {
 
           <button
             type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xl py-4 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-black text-2xl py-5 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] shadow-xl hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 mt-6"
             disabled={loading}
           >
             {loading ? (
@@ -380,15 +417,15 @@ export default function Home() {
                 Processando...
               </span>
             ) : (
-              'SIM! Quero Meu E-book Agora por R$ 9,90'
+              PAGE_CONTENT.cta
             )}
           </button>
         </form>
 
-        {/* Garantia e Informação Final (Gatilho de Segurança) */}
+        {/* Garantia e Informação Final */}
         <div className="mt-8 pt-6 border-t border-gray-200 text-center">
           <p className="text-sm text-gray-500 leading-relaxed">
-            <strong className="text-purple-700">Compra 100% Segura.</strong> Seu acesso ao guia completo para começar sua jornada rumo à renda online será enviado imediatamente para o e-mail cadastrado após a confirmação do pagamento.
+            <strong className="text-purple-700">Garantia Total.</strong> {PAGE_CONTENT.guarantee}
           </p>
         </div>
 
@@ -399,7 +436,7 @@ export default function Home() {
             </p>
             <div className="flex justify-center space-x-6">
                 <a 
-                    href="https://www.instagram.com/caminho.digital0/" 
+                    href={PAGE_CONTENT.social.instagram}
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-gray-400 hover:text-pink-600 transition-colors"
@@ -408,7 +445,7 @@ export default function Home() {
                     <FaInstagram className="w-8 h-8" />
                 </a>
                 <a 
-                    href="https://www.tiktok.com/@caminho.digital0" 
+                    href={PAGE_CONTENT.social.tiktok}
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-gray-400 hover:text-black transition-colors"
@@ -422,7 +459,6 @@ export default function Home() {
             </p>
         </div>
       </div>
-
     </div>
   );
 }
