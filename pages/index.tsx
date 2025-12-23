@@ -125,24 +125,63 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const emailRef = useRef<HTMLInputElement>(null);
+  const [success, setSuccess] = useState('');
+  const emailInputRef = useRef<HTMLInputElement>(null);
 
-  /* CHECKOUT — NÃO MEXIDO */
+  const generateExternalReference = (): string => {
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(2, 11);
+    return `ORDER_${timestamp}_${randomString}`;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
     setLoading(true);
-    setError("");
 
     try {
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setError('Por favor, insira um e-mail válido.');
+        setLoading(false);
+        emailInputRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+        return;
+      }
+
+      const externalReference = generateExternalReference();
+      console.log('External Reference gerado:', externalReference);
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/create_preference`,
-        { buyer_email: email }
+        {
+          buyer_email: email,
+          external_reference: externalReference,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
 
       if (response.data.init_point) {
+        setSuccess('Redirecionando para o checkout...');
         window.location.href = response.data.init_point;
+      } else if (response.data.sandbox_init_point) {
+        setSuccess('Redirecionando para o checkout (Sandbox)...');
+        window.location.href = response.data.sandbox_init_point;
+      } else {
+        setError('Erro ao obter o link de checkout. Tente novamente.');
       }
-    } catch {
-      setError("Erro ao processar pagamento.");
+    } catch (err: any) {
+      console.error('Erro ao criar preferência:', err);
+      setError(
+        err.response?.data?.message ||
+        'Erro ao processar o pagamento. Tente novamente.'
+      );
     } finally {
       setLoading(false);
     }
