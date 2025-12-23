@@ -231,7 +231,7 @@ export default function Home() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-5 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 font-bold text-lg shadow-[0_0_40px_rgba(168,85,247,0.5)] hover:scale-[1.02] transition"
+            className="w-full py-5 px-3 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 font-bold text-lg shadow-[0_0_40px_rgba(168,85,247,0.5)] hover:scale-[1.02] transition"
           >
             {loading ? "Processando..." : PAGE_CONTENT.cta}
           </button>
