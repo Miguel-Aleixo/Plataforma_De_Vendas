@@ -9,6 +9,7 @@ import {
   FaTiktok,
   FaMoneyBillWave,
   FaArrowRight,
+  FaGift,
 } from "react-icons/fa";
 
 export default function LinkBio() {
@@ -54,11 +55,27 @@ export default function LinkBio() {
             Sem promessa fácil. Sem ilusão.
           </p>
 
+          {/* CTA GRATUITO */}
+          <Link href="/conteudo_gratis">
+            <motion.div
+              whileHover={{ scale: 1.04 }}
+              className="mt-6 flex items-center justify-center gap-4 py-5 rounded-2xl 
+              bg-gradient-to-r from-emerald-500 to-green-600 
+              font-bold text-lg shadow-[0_0_40px_rgba(16,185,129,0.45)]"
+            >
+              <FaGift className="text-xl" />
+              <span>Pegar conteúdo grátis</span>
+              <FaArrowRight className="text-lg opacity-80" />
+            </motion.div>
+          </Link>
+
           {/* CTA PRINCIPAL */}
           <Link href="/metodo">
             <motion.div
               whileHover={{ scale: 1.03 }}
-              className="mt-6 flex items-center justify-center gap-4 py-5 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 font-bold text-lg shadow-[0_0_40px_rgba(168,85,247,0.5)]"
+              className="flex mt-4 items-center justify-center gap-4 py-5 rounded-2xl 
+              bg-gradient-to-r from-purple-600 to-fuchsia-600 
+              font-bold text-lg shadow-[0_0_40px_rgba(168,85,247,0.5)]"
             >
               <FaMoneyBillWave className="text-xl" />
               <span>Acessar o conteúdo principal</span>
@@ -78,7 +95,8 @@ export default function LinkBio() {
             <a
               href="https://www.instagram.com/caminho.digital0/"
               target="_blank"
-              className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition"
+              className="flex items-center justify-center gap-3 w-full py-4 rounded-xl 
+              bg-white/5 border border-purple-500/20 hover:bg-white/10 transition"
             >
               <FaInstagram className="text-pink-400 text-xl" />
               <span>Instagram</span>
@@ -87,7 +105,8 @@ export default function LinkBio() {
             <a
               href="https://www.tiktok.com/@caminho.digital0"
               target="_blank"
-              className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition"
+              className="flex items-center justify-center gap-3 w-full py-4 rounded-xl 
+              bg-white/5 border border-purple-500/20 hover:bg-white/10 transition"
             >
               <FaTiktok className="text-white text-xl" />
               <span>TikTok</span>
