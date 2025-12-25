@@ -66,8 +66,7 @@ const PAGE_CONTENT = {
     },
   ],
   cta: "QUERO MEU ACESSO IMEDIATO POR R$ 9,90",
-  guarantee:
-    "Compra 100% segura. Acesso imediato após a confirmação do pagamento.",
+  guarantee: "Garantia incondicional de 7 dias. Se não gostar, devolvemos seu dinheiro.",
   social: {
     instagram: "https://www.instagram.com/caminho.digital0/",
     tiktok: "https://www.tiktok.com/@caminho.digital0",
@@ -192,7 +191,7 @@ export default function Home() {
       {/* GLOW */}
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-purple-600/30 blur-[160px]" />
 
-      <section className="max-w-3xl mx-auto px-6 py-20">
+      <section className="max-w-3xl mx-auto px-6 pb-20 pt-10">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -247,6 +246,23 @@ export default function Home() {
             );
           })}
         </div>
+
+        {/* GARANTIA 7 DIAS */}
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="mt-8 p-5 rounded-2xl bg-white/5 border border-purple-500/20 text-center"
+        >
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <FaShieldAlt className="text-purple-400 text-xl" />
+            <span className="font-semibold">Garantia de 7 dias</span>
+          </div>
+
+          <p className="text-sm text-gray-400 leading-relaxed">
+            Você pode testar o conteúdo por 7 dias.
+            Se não for para você, basta solicitar o reembolso — simples e sem perguntas.
+          </p>
+        </motion.div>
+
 
         {/* FORM */}
         <form
