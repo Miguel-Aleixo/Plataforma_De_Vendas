@@ -40,22 +40,6 @@ const PAGE_CONTENT = {
 export default function ConteudoGratis() {
   const [liberado, setLiberado] = useState(false);
 
-  const handleDownload = () => {
-    const ua = navigator.userAgent.toLowerCase();
-    const isInstagram = ua.includes("instagram");
-    const isTikTok = ua.includes("tiktok");
-
-    if (isInstagram || isTikTok) {
-      alert(
-        "⚠️ Para baixar o conteúdo:\n\nToque nos três pontinhos (⋮) no canto da tela e escolha 'Abrir no navegador'.\n\nDepois volte e clique novamente em baixar."
-      );
-      return;
-    }
-
-    // Força download no navegador normal
-    window.location.href = "/conteudo_gratis.pdf";
-  };
-
   return (
     <main className="min-h-screen bg-[#0B0B12] text-white relative overflow-hidden">
       {/* GLOW */}
@@ -126,12 +110,13 @@ export default function ConteudoGratis() {
               Informação sem ação não gera resultado.
             </p>
 
-            <button
-              onClick={handleDownload}
+            <a
+              href="/conteudo_gratis.pdf"
+              download
               className="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 font-bold shadow-[0_0_30px_rgba(16,185,129,0.5)]"
             >
               Baixar conteúdo gratuito
-            </button>
+            </a>
 
             <p className="mt-3 text-xs text-yellow-400">
               ⚠️ Se estiver no Instagram ou TikTok, abra no navegador para baixar
