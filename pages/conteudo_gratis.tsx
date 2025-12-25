@@ -90,7 +90,7 @@ export default function ConteudoGratis() {
                     <motion.button
                         whileHover={{ scale: 1.03 }}
                         onClick={() => setLiberado(true)}
-                        className="mt-14 w-full py-5 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 font-bold text-lg shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center gap-4"
+                        className="mt-14 w-full py-5 px-8 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 font-bold text-lg shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2"
                     >
                         <FaGift />
                         {PAGE_CONTENT.cta}
@@ -112,6 +112,7 @@ export default function ConteudoGratis() {
                         {/* EXEMPLO */}
                         <a
                             href="/conteudo_gratis.pdf"
+                            download
                             target="_blank"
                             className="inline-block mt-4 text-emerald-400 underline"
                         >
