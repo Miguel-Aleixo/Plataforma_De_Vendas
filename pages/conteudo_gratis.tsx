@@ -106,19 +106,19 @@ export default function ConteudoGratis() {
               ✅ Acesso liberado
             </p>
 
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm mb-8">
               Informação sem ação não gera resultado.
             </p>
 
             <a
-              href="/conteudo_gratis.pdf"
+              href="/7-Passos-Para-Sua-Renda-Online.pdf"
               download
-              className="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 font-bold shadow-[0_0_30px_rgba(16,185,129,0.5)]"
+              className="mt-6 w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 font-bold shadow-[0_0_30px_rgba(16,185,129,0.5)]"
             >
               Baixar conteúdo gratuito
             </a>
 
-            <p className="mt-3 text-xs text-yellow-400">
+            <p className="mt-8 text-xs text-yellow-400">
               ⚠️ Se estiver no Instagram ou TikTok, abra no navegador para baixar
             </p>
           </motion.div>
