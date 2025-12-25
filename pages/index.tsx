@@ -1,7 +1,9 @@
 "use client";
 
+import axios from "axios";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   FaInstagram,
   FaTiktok,
@@ -10,9 +12,25 @@ import {
 } from "react-icons/fa";
 
 export default function LinkBio() {
+  useEffect(() => {
+    const wakeBackend = async () => {
+      try {
+        await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/ping`,
+          { timeout: 10000 }
+        );
+        console.log("Backend acordado");
+      } catch (err) {
+        console.log("Backend ainda acordando...");
+      }
+    };
+
+    wakeBackend();
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#0B0B12] text-white relative overflow-hidden flex items-center justify-center px-6">
-      
+
       {/* GLOW */}
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-600/30 blur-[160px]" />
 
