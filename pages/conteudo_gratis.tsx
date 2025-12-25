@@ -119,8 +119,12 @@ export default function ConteudoGratis() {
             </a>
 
             <p className="mt-8 text-xs text-yellow-400">
-              ⚠️ Se estiver no Instagram ou TikTok, abra no navegador para baixar
+              ⚠️ Está no Instagram ou TikTok?
+              <br />
+              Toque nos <b>três pontinhos (⋮)</b> e selecione
+              <b className="underline ml-1">“Abrir no navegador”</b> para conseguir baixar.
             </p>
+
           </motion.div>
         )}
 
