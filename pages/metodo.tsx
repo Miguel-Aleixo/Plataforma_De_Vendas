@@ -216,7 +216,7 @@ export default function Home() {
         </motion.div>
 
         {/* PREÇO */}
-        <div className="mt-10 text-center">
+        <div className="mt-10 text-center ">
           <p className="line-through text-gray-500">
             {PAGE_CONTENT.pricing.originalPrice}
           </p>
@@ -230,7 +230,7 @@ export default function Home() {
         </div>
 
         {/* BENEFÍCIOS */}
-        <div className="grid md:grid-cols-2 gap-6 mt-14">
+        <div className="grid md:grid-cols-2 gap-6 mt-14 text-center md:text-left">
           {PAGE_CONTENT.benefits.map((b, i) => {
             const Icon = b.icon;
             return (
@@ -239,9 +239,13 @@ export default function Home() {
                 whileHover={{ scale: 1.03 }}
                 className="p-6 rounded-2xl bg-white/5 border border-purple-500/20 backdrop-blur"
               >
-                <Icon className="text-purple-400 text-2xl mb-3" />
-                <h3 className="font-bold">{b.title}</h3>
-                <p className="text-gray-400 text-sm">{b.description}</p>
+                <div className="flex flex-col items-center">
+                  <div className="flex flex-row gap-2">
+                    <Icon className="text-purple-400 text-2xl mb-3" />
+                    <h3 className="font-bold">{b.title}</h3>
+                  </div>
+                  <p className="text-gray-400 text-sm">{b.description}</p>
+                </div>
               </motion.div>
             );
           })}
@@ -250,7 +254,7 @@ export default function Home() {
         {/* GARANTIA 7 DIAS */}
         <motion.div
           whileHover={{ scale: 1.03 }}
-          className="mt-8 p-5 rounded-2xl bg-white/5 border border-purple-500/20 text-center"
+          className="mt-6 p-5 rounded-2xl bg-white/5 border border-purple-500/20 text-center"
         >
           <div className="flex items-center justify-center gap-2 mb-2">
             <FaShieldAlt className="text-purple-400 text-xl" />
