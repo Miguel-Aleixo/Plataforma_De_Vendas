@@ -20,9 +20,8 @@ export default function LinkBio() {
           `${process.env.NEXT_PUBLIC_API_URL}/ping`,
           { timeout: 10000 }
         );
-        console.log("Backend acordado");
       } catch (err) {
-        console.log("Backend ainda acordando...");
+        // silêncio proposital
       }
     };
 
@@ -45,14 +44,14 @@ export default function LinkBio() {
 
           {/* TÍTULO */}
           <h1 className="text-3xl font-extrabold leading-tight">
-            Poucos aguentam o peso do próprio objetivo.
+            Poste no digital sem travar.
           </h1>
 
           {/* SUB */}
           <p className="text-gray-400 text-sm leading-relaxed">
-            Aqui está tudo que eu uso e recomendo.
+            Aqui estão os materiais que eu uso para criar conteúdo
             <br />
-            Sem promessa fácil. Sem ilusão.
+            mesmo sem ideias e sem aparecer.
           </p>
 
           {/* CTA GRATUITO */}
@@ -64,7 +63,7 @@ export default function LinkBio() {
               font-bold text-lg shadow-[0_0_40px_rgba(16,185,129,0.45)]"
             >
               <FaGift className="text-xl" />
-              <span>Pegar conteúdo grátis</span>
+              <span>Acessar conteúdo gratuito</span>
               <FaArrowRight className="text-lg opacity-80" />
             </motion.div>
           </Link>
@@ -78,7 +77,7 @@ export default function LinkBio() {
               font-bold text-lg shadow-[0_0_40px_rgba(168,85,247,0.5)]"
             >
               <FaMoneyBillWave className="text-xl" />
-              <span>Acessar o conteúdo principal</span>
+              <span>Pack com 30 roteiros prontos</span>
               <FaArrowRight className="text-lg opacity-80" />
             </motion.div>
           </Link>
@@ -115,7 +114,7 @@ export default function LinkBio() {
 
           {/* FOOTER */}
           <p className="pt-8 text-[11px] text-gray-600">
-            Nenhuma promessa de ganhos • Resultados variam conforme esforço
+            Conteúdo educacional • Resultados variam conforme execução
           </p>
         </motion.div>
       </section>
