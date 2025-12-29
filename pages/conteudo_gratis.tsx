@@ -141,7 +141,7 @@ export default function ConteudoGratis() {
             {PAGE_CONTENT.upsellText}
           </p>
 
-          <Link href="https://pay.kiwify.com.br/7BAPks9">
+          <Link href="https://pay.kiwify.com.br/JDdfYqz">
             <span className="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 font-semibold shadow-[0_0_30px_rgba(168,85,247,0.5)]">
               Acessar método completo
             </span>
