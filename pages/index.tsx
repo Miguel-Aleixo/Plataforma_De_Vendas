@@ -69,7 +69,7 @@ export default function LinkBio() {
           </Link>
 
           {/* CTA PRINCIPAL */}
-          <Link href="https://pay.kiwify.com.br/7BAPks9">
+          <Link href="https://pay.kiwify.com.br/JDdfYqz">
             <motion.div
               whileHover={{ scale: 1.03 }}
               className="flex mt-4 items-center justify-center gap-4 py-5 rounded-2xl 
